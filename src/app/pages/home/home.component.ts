@@ -3,6 +3,7 @@ import { Banner, HotTag, SongSheet, Singer } from '../../services/data-type/comm
 import { NzCarouselComponent } from 'ng-zorro-antd';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/internal/operators';
+import { SheetService } from 'src/app/services/sheet.service';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,8 @@ export class HomeComponent implements OnInit {
   @ViewChild(NzCarouselComponent, { static: true }) private nzCarousel: NzCarouselComponent;
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private sheetService: SheetService
   ) { }
 
   ngOnInit() {
@@ -39,6 +41,12 @@ export class HomeComponent implements OnInit {
     this.nzCarousel[type]();
     // this.nzCarousel.pre();
     // this.nzCarousel.next();
+  }
+
+  onPlaySheet(id: number) {
+    this.sheetService.playSheet(id).subscribe(res => {
+      console.log(res)
+    })
   }
 
 }
